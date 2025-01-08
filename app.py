@@ -19,8 +19,20 @@ def add_task():
     today = datetime.today().strftime("%d/%m/%Y")
     task = request.form.get("input_task")
     priority = request.form.get("priority")
+    due_date_str = request.form.get("due_date")
+    # Convert the due date string to a datetime object and format it to day/month/year.
+    if due_date_str is not None and due_date_str != "":
+        due_date = datetime.strptime(due_date_str, "%Y-%m-%d").strftime("%d/%m/%Y")
+    else:
+        due_date = ""
     tasks.append(
-        {"description": task, "done": False, "created": today, "priority": priority}
+        {
+            "description": task,
+            "done": False,
+            "created": today,
+            "priority": priority,
+            "due_date": due_date,
+        }
     )
     # Send the user back to the index page.
     return redirect(url_for("index"))
