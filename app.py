@@ -16,18 +16,24 @@ def index():
 # The form action sends the user to the `/add` page.
 @app.route("/add", methods=["POST"])
 def add_task():
-    today = datetime.today().strftime("%d/%m/%Y")
+    today = datetime.today().strftime("%Y-%m-%d")
     task = request.form.get("input_task")
     priority = request.form.get("priority")
+    due_date = request.form.get("due_date")
     tasks.append(
-        {"description": task, "done": False, "created": today, "priority": priority}
+        {
+            "description": task,
+            "done": False,
+            "created": today,
+            "priority": priority,
+            "due_date": due_date,
+        }
     )
     # Send the user back to the index page.
     return redirect(url_for("index"))
 
 
-# The Delete link sends the user to the `/delete/`
-# page followed by an integer.
+# The Delete link sends the user to the `/delete/` page followed by an integer.
 @app.route("/delete/<int:task_id>")
 def delete_task(task_id):
     tasks.pop(task_id)
@@ -35,8 +41,7 @@ def delete_task(task_id):
     return redirect(url_for("index"))
 
 
-# The Toggle link sends the user to the `/toggle/`
-# page followed by an integer.
+# The Toggle link sends the user to the `/toggle/` page followed by an integer.
 @app.route("/toggle/<int:task_id>")
 def toggle_task(task_id):
     tasks[task_id]["done"] = not tasks[task_id]["done"]
