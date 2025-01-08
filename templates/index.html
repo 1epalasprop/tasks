@@ -23,6 +23,8 @@
         {% for task in tasks %}
         <li>
               {{ task }}
+          <!-- Link to delete the task. Uses loop.index0 to pass the task index to the route -->
+          <a href="/delete/{{ loop.index0 }}">[Delete]</a>
         </li>
         {% endfor %} <!-- End of the loop over tasks -->
     </ul>

@@ -20,3 +20,16 @@ def add_task():
     # Send the user back to the index page.
     return redirect(url_for("index"))
 
+
+# The Delete link sends the user to the `/delete/`
+# page followed by an integer.
+@app.route("/delete/<int:task_id>")
+def delete_task(task_id):
+    tasks.pop(task_id)
+    # Send the user back to the index page.
+    return redirect(url_for("index"))
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
