@@ -38,6 +38,7 @@
             <option value="🟡 Medium" selected>🟡 Medium</option>
             <option value="🟢 Low">🟢 Low</option>
         </select>
+        <input type="date" id="due_date" name="due_date">
         <button type="submit">Add Task</button>
     </form>
 
@@ -48,6 +49,7 @@
                 <th>Priority</th>
                 <th>Description</th>
                 <th>Created</th>
+                <th>Due Date</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -59,10 +61,12 @@
                 <td>{{ task['priority'] }}</td>
                 <td class="{{ 'done' if task['done'] else '' }}">{{ task['description'] }}</td>
                 <td>{{ task['created'] }}</td>
+                <td>{{ task['due_date'] }}</td>
                 <td>{{ 'Done' if task['done'] else 'Not Done' }}</td>
                 <td>
                     <a href="/toggle/{{ loop.index0 }}">[Toggle]</a>
                     <a href="/delete/{{ loop.index0 }}">[Delete]</a>
+                    <a href="/edit/{{ loop.index0 }}">[Edit]</a>
                 </td>
             </tr>
             {% endfor %}

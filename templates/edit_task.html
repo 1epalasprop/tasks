@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+</head>
+<body>
+    <h1>Edit Task</h1>
+
+    <form action="/edit/{{ task_id }}" method="POST">
+        <input type="text" name="input_task" value="{{ task['description'] }}" required>
+        <label for="priority">Choose a priority:</label>
+        <select id="priority" name="priority">
+            <option value="🚨 Urgent" {% if task['priority'] == '🚨 Urgent' %}selected{% endif %}>🚨 Urgent</option>
+            <option value="🔴 Important" {% if task['priority'] == '🔴 Important' %}selected{% endif %}>🔴 Important</option>
+            <option value="🟡 Medium" {% if task['priority'] == '🟡 Medium' %}selected{% endif %}>🟡 Medium</option>
+            <option value="🟢 Low" {% if task['priority'] == '🟢 Low' %}selected{% endif %}>🟢 Low</option>
+        </select>
+        <label for="due_date">Due Date:</label>
+        <input type="date" id="due_date" name="due_date" value="{{ task['due_date'] }}">
+        <button type="submit">Update Task</button>
+    </form>
+
+    <a href="/">Back to Task List</a>
+</body>
+</html>

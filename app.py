@@ -48,5 +48,28 @@ def toggle_task(task_id):
     return redirect(url_for("index"))
 
 
+# The Edit link sends the user to the `/edit/` page followed by an integer.
+@app.route("/edit/<int:task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+    if request.method == "POST":
+        # Update the task with new values
+        task = request.form.get("input_task")
+        priority = request.form.get("priority")
+        due_date = request.form.get("due_date")
+
+        tasks[task_id] = {
+            "description": task,
+            "done": tasks[task_id]["done"],  # Keep the done status unchanged
+            "created": tasks[task_id]["created"],  # Keep the created date unchanged
+            "priority": priority,
+            "due_date": due_date,
+        }
+        return redirect(url_for("index"))
+
+    # If GET request, render the edit form with current task details
+    task_to_edit = tasks[task_id]
+    return render_template("edit_task.html", task=task_to_edit, task_id=task_id)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
