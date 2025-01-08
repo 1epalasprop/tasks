@@ -16,7 +16,7 @@ def index():
 @app.route("/add", methods=["POST"])
 def add_task():
     task = request.form.get("input_task")
-    tasks.append(task)
+    tasks.append({"description": task, "done": False})
     # Send the user back to the index page.
     return redirect(url_for("index"))
 
@@ -29,6 +29,13 @@ def delete_task(task_id):
     # Send the user back to the index page.
     return redirect(url_for("index"))
 
+
+# The Toggle link sends the user to the `/toggle/`
+# page followed by an integer.
+@app.route("/toggle/<int:task_id>")
+def toggle_task(task_id):
+    tasks[task_id]["done"] = not tasks[task_id]["done"]
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":

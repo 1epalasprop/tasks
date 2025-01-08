@@ -22,7 +22,11 @@
         <!-- Loop over each task in the tasks list passed from the Flask app -->
         {% for task in tasks %}
         <li>
-              {{ task }}
+          <span style="text-decoration: {{ 'line-through' if task['done'] else 'none' }}">
+              {{ task['description'] }} <!-- Output the task description -->
+          </span>
+          <!-- Link to toggle the task. Uses loop.index0 to pass the task index to the route -->
+          <a href="/toggle/{{ loop.index0 }}">[Toggle]</a>
           <!-- Link to delete the task. Uses loop.index0 to pass the task index to the route -->
           <a href="/delete/{{ loop.index0 }}">[Delete]</a>
         </li>
