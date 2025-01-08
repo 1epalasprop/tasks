@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Define the document's character encoding and viewport settings for responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Tasks</title> <!-- Title of the web page -->
+</head>
+<body>
+    <h1>To-Do Tasks</h1>
+
+    <!-- Form to add a new task -->
+    <form action="/add" method="POST">
+        <!-- Input field where users can type a new task -->
+        <!-- Note the name of the text: input_task -->
+        <input type="text" name="input_task" placeholder="Enter a new task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <!-- Unordered list to display tasks -->
+    <ul>
+        <!-- Loop over each task in the tasks list passed from the Flask app -->
+        {% for task in tasks %}
+        <li>
+              {{ task }}
+        </li>
+        {% endfor %} <!-- End of the loop over tasks -->
+    </ul>
+</body>
+</html>
