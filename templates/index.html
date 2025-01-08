@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do Tasks</title> <!-- Title of the web page -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .done {
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
     <h1>To-Do Tasks</h1>
@@ -24,21 +41,32 @@
         <button type="submit">Add Task</button>
     </form>
 
-    <!-- Unordered list to display tasks -->
-    <ul>
-        <!-- Loop over each task in the tasks list passed from the Flask app -->
-        {% for task in tasks %}
-        <li>
-          <span style="text-decoration: {{ 'line-through' if task['done'] else 'none' }}">
-              {{ task['description'] }} <!-- Output the task description -->
-              (created: {{ task['created'] }} - priority: {{ task['priority'] }})
-          </span>
-          <!-- Link to toggle the task. Uses loop.index0 to pass the task index to the route -->
-          <a href="/toggle/{{ loop.index0 }}">[Toggle]</a>
-          <!-- Link to delete the task. Uses loop.index0 to pass the task index to the route -->
-          <a href="/delete/{{ loop.index0 }}">[Delete]</a>
-        </li>
-        {% endfor %} <!-- End of the loop over tasks -->
-    </ul>
+    <!-- Table to display tasks -->
+    <table>
+        <thead>
+            <tr>
+                <th>Priority</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop over each task in the tasks list passed from the Flask app -->
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task['priority'] }}</td>
+                <td class="{{ 'done' if task['done'] else '' }}">{{ task['description'] }}</td>
+                <td>{{ task['created'] }}</td>
+                <td>{{ 'Done' if task['done'] else 'Not Done' }}</td>
+                <td>
+                    <a href="/toggle/{{ loop.index0 }}">[Toggle]</a>
+                    <a href="/delete/{{ loop.index0 }}">[Delete]</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
