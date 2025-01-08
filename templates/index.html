@@ -24,6 +24,7 @@
         <li>
           <span style="text-decoration: {{ 'line-through' if task['done'] else 'none' }}">
               {{ task['description'] }} <!-- Output the task description -->
+              (created: {{ task['created']}})
           </span>
           <!-- Link to toggle the task. Uses loop.index0 to pass the task index to the route -->
           <a href="/toggle/{{ loop.index0 }}">[Toggle]</a>

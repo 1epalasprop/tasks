@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
@@ -15,8 +16,9 @@ def index():
 # The form action sends the user to the `/add` page.
 @app.route("/add", methods=["POST"])
 def add_task():
+    today = datetime.today().strftime("%d/%m/%Y")
     task = request.form.get("input_task")
-    tasks.append({"description": task, "done": False})
+    tasks.append({"description": task, "done": False, "created": today})
     # Send the user back to the index page.
     return redirect(url_for("index"))
 
