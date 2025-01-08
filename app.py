@@ -18,7 +18,10 @@ def index():
 def add_task():
     today = datetime.today().strftime("%d/%m/%Y")
     task = request.form.get("input_task")
-    tasks.append({"description": task, "done": False, "created": today})
+    priority = request.form.get("priority")
+    tasks.append(
+        {"description": task, "done": False, "created": today, "priority": priority}
+    )
     # Send the user back to the index page.
     return redirect(url_for("index"))
 
